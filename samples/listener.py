@@ -28,6 +28,7 @@ NetworkTables.initialize(server=ip)
 
 def valueChanged(table, key, value, isNew):
     print("valueChanged: key: '%s'; value: %s; isNew: %s" % (key, value, isNew))
+    print(sd.getString('color'))
 
 def connectionListener(connected, info):
     print(info, '; Connected=%s' % connected)
@@ -35,8 +36,8 @@ def connectionListener(connected, info):
 
 NetworkTables.addConnectionListener(connectionListener, immediateNotify=True)
 
-sd = NetworkTables.getTable("SmartDashboard")
-sd.addEntryListener(valueChanged)
+sd = NetworkTables.getTable("blingTable")
+sd.addTableListener(valueChanged, True, "command")
 
 while True:
     time.sleep(1)

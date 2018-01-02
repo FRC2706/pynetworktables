@@ -14,6 +14,7 @@
 #     SmartDashboard.jar ip 127.0.0.1
 #
 
+import sys
 import time
 from networktables import NetworkTables
 
@@ -22,13 +23,15 @@ import logging
 logging.basicConfig(level=logging.DEBUG)
 
 NetworkTables.initialize()
-sd = NetworkTables.getTable("SmartDashboard")
+sd = NetworkTables.getTable("blingTable")
 
-i = 0
 while True:
-    print('dsTime:', sd.getNumber('dsTime', 'N/A'))
+    parms = input("Enter command color: ")
+    command=parms.split()[0]
+    color=parms.split()[1]
     
-    sd.putNumber('robotTime', i)
-    time.sleep(1)
-    i += 1
+    print("Command: %s" % command)
+    print("Color:   %s" % color)
 
+    sd.putString('command', command)
+    sd.putString('color', color)
